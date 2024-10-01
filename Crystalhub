@@ -1,0 +1,158 @@
+-- Crystal Hub Script
+
+-- UI Variables
+local gui = Instance.new("ScreenGui")
+local mainFrame = Instance.new("Frame")
+local tabFrame = Instance.new("Frame")
+local homeTab = Instance.new("Tab")
+local scripthubTab = Instance.new("Tab")
+local executorTab = Instance.new("Tab")
+local cloudTab = Instance.new("Tab")
+local toggleCircle = Instance.new("ImageLabel")
+local toggleState = false
+
+-- UI Properties
+gui.Name = "Crystal Hub"
+mainFrame.Size = UDim2.new(0, 400, 0, 200)
+mainFrame.BackgroundColor3 = Color3.new(0, 0, 0.5) -- Dark Blue
+mainFrame.BackgroundTransparency = 0.5
+mainFrame.Position = UDim2.new(0.5, -200, 0.5, -100)
+mainFrame.Draggable = true
+
+-- Tab Properties
+homeTab.Name = "Home"
+homeTab.BackgroundColor3 = Color3.new(0, 0, 0.5)
+homeTab.BackgroundTransparency = 0.5
+scripthubTab.Name = "Scripthub"
+scripthubTab.BackgroundColor3 = Color3.new(0, 0, 0.5)
+scripthubTab.BackgroundTransparency = 0.5
+executorTab.Name = "Executor"
+executorTab.BackgroundColor3 = Color3.new(0, 0, 0.5)
+executorTab.BackgroundTransparency = 0.5
+cloudTab.Name = "Cloud"
+cloudTab.BackgroundColor3 = Color3.new(0, 0, 0.5)
+cloudTab.BackgroundTransparency = 0.5
+
+-- Toggle Circle Properties
+toggleCircle.Name = "ToggleCircle"
+toggleCircle.Image = "http://www.roblox.com/asset/?id=1234567890" -- Replace with your own circle image
+toggleCircle.Size = UDim2.new(0, 20, 0, 20)
+toggleCircle.Position = UDim2.new(0.5, -10, 0.5, -10)
+toggleCircle.BackgroundColor3 = Color3.new(0, 0, 0.5)
+toggleCircle.BackgroundTransparency = 0.5
+
+-- Home Tab Content
+local usernameLabel = Instance.new("TextLabel")
+usernameLabel.Text = "Username: ".. game.Players.LocalPlayer.Name
+usernameLabel.Size = UDim2.new(1, 0, 0, 20)
+usernameLabel.Font = Enum.Font.SourceSans
+usernameLabel.FontSize = Enum.FontSize.Size14
+usernameLabel.TextColor3 = Color3.new(1, 1, 1)
+usernameLabel.BackgroundTransparency = 1
+
+-- Scripthub Tab Content
+local scriptList = Instance.new("ScrollingFrame")
+scriptList.Size = UDim2.new(1, 0, 1, 0)
+scriptList.BackgroundColor3 = Color3.new(0, 0, 0.5)
+scriptList.BackgroundTransparency = 0.5
+for i = 1, 10 do
+    local scriptButton = Instance.new("TextButton")
+    scriptButton.Text = "Script ".. i
+    scriptButton.Size = UDim2.new(1, 0, 0, 20)
+    scriptButton.Font = Enum.Font.SourceSans
+    scriptButton.FontSize = Enum.FontSize.Size14
+    scriptButton.TextColor3 = Color3.new(1, 1, 1)
+    scriptButton.BackgroundTransparency = 1
+    scriptButton.Parent = scriptList
+end
+
+-- Executor Tab Content
+local executorBox = Instance.new("TextBox")
+executorBox.Size = UDim2.new(1, 0, 1, 0)
+executorBox.backgroundColor3 = Color3.new(0, 0, 0.5)
+executorBox.backgroundTransparency = 0.5
+executorBox.Font = Enum.Font.SourceSans
+executorBox.FontSize = Enum.FontSize.Size14
+executorBox.TextColor3 = Color3.new(1, 1, 1)
+executorBox.Parent = executorTab
+
+-- Cloud Tab Content
+local scriptSearchBox = Instance.new("TextBox")
+scriptSearchBox.Size = UDim2.new(1, 0, 0, 20)
+scriptSearchBox.backgroundColor3 = Color3.new(0, 0, 0.5)
+scriptSearchBox.backgroundTransparency = 0.5
+scriptSearchBox.Font = Enum.Font.SourceSans
+scriptSearchBox.FontSize = Enum.FontSize.Size14
+scriptSearchBox.TextColor3 = Color3.new(1, 1, 1)
+scriptSearchBox.Parent = cloudTab
+
+local scriptSearchResults = Instance.new("ScrollingFrame")
+scriptSearchResults.Size = UDim2.new(1, 0, 1, 0)
+scriptSearchResults.BackgroundColor3 = Color3.new(0, 0, 0.5)
+scriptSearchResults.BackgroundTransparency = 0.5
+scriptSearchResults.Parent = cloudTab
+
+-- Toggle Function
+toggleCircle.MouseButton1Click:Connect(function()
+    if toggleState then
+        mainFrame.BackgroundTransparency = 0.5
+        toggleState = false
+    else
+        mainFrame.BackgroundTransparency = 1
+        toggleState = true
+    end
+end)
+
+-- Adding everything to the GUI
+mainFrame.Parent = gui
+tabFrame.Parent = mainFrame
+homeTab.Parent = tabFrame
+scripthubTab.Parent = tabFrame
+executorTab.Parent = tabFrame
+cloudTab.Parent = tabFrame
+usernameLabel.Parent = homeTab
+scriptList.Parent = scripthubTab
+executorBox.Parent = executorTab
+scriptSearchBox.Parent = cloudTab
+scriptSearchResults.Parent = cloudTab
+toggleCircle.Parent = mainFrame
+
+-- ScriptBloxs API Search Function
+local function searchScripts(query)
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+    local data = {
+        ["query"] = query
+    }
+    local response = game:HttpGetAsync("https://scriptblox.com/api/v1/search", headers, data)
+    local scripts = game:GetService("HttpService"):JSONDecode(response)
+    for i, script in ipairs(scripts) do
+        local scriptButton = Instance.new("TextButton")
+        scriptButton.Text = script.name
+        scriptButton.Size = UDim2.new(1, 0, 0, 20)
+        scriptButton.Font = Enum.Font.SourceSans
+        scriptButton.FontSize = Enum.FontSize.Size14
+        scriptButton.TextColor3 = Color3.new(1, 1, 1)
+        scriptButton.BackgroundTransparency = 1
+        scriptButton.Parent = scriptSearchResults
+    end
+end
+
+scriptSearchBox.FocusLost:Connect(function()
+    searchScripts(scriptSearchBox.Text)
+end)
+
+-- Executor Function
+executorBox.FocusLost:Connect(function()
+    local code = executorBox.Text
+    local func, err = loadstring(code)
+    if func then
+        func()
+    else
+        print(err)
+    end
+end)
+
+-- Running the GUI
+gui.Parent = game.Players.LocalPlayer.PlayerGui

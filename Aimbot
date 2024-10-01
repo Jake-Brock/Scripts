@@ -1,0 +1,71 @@
+-- Crystal Aimbot Script by Jake
+
+-- Settings
+local aimbotEnabled = false
+local sensitivity = 10
+local smoothness = 5
+
+-- Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+-- Local Player
+local localPlayer = Players.LocalPlayer
+
+-- Function to check if a part is a wall
+local function isWall(part)
+if part:IsA("Part") or part:IsA("UnionOperation") or part:IsA("MeshPart") or part:IsA("CornerWedgePart") or part:IsA("TrussPart") then
+return true
+end
+return false
+end
+
+-- Function to check if a player is on the same team as the local player
+local function isTeammate(player)
+if player.Team == localPlayer.Team then
+return true
+end
+return false
+end
+
+-- Function to get the nearest player
+local function getNearestPlayer()
+local nearestPlayer = nil
+local nearestDistance = math.huge
+for _, player in pairs(Players:GetPlayers()) do
+if player ~= localPlayer and not isTeammate(player) then
+local character = player.Character
+if character then
+local distance = (character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).Magnitude
+if distance < nearestDistance then
+nearestPlayer = player
+nearestDistance = distance
+end
+end
+end
+end
+return nearestPlayer
+end
+
+-- Function to aim at a player
+local function aimAtPlayer(player)
+local character = player.Character
+if character then
+local humanoidRootPart = character.HumanoidRootPart
+if humanoidRootPart then
+local camera = Workspace.CurrentCamera
+local vector, onScreen = camera:WorldToViewportPoint(humanoidRootPart.Position)
+if onScreen then
+local mouse = UserInputService:GetMouseLocation()
+local deltaX = vector.X - mouse.X
+local deltaY = vector.Y - mouse.Y
+UserInputService:MoveMouse(mouse.X + (deltaX / smoothness), mouse.Y + (deltaY / smoothness))
+end
+end
+end
+end
+
+-- Toggle aimbot
+UserInputService.InputBegan:Connect(function(input)

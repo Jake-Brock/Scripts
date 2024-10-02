@@ -1,0 +1,182 @@
+-- Create the main frame
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 400, 0, 200)
+mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+mainFrame.BorderSizePixel = 0
+mainFrame.Position = UDim2.new(0, 100, 0, 100)
+mainFrame.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Create the tabs
+local tabs = {}
+local tabNames = {"Home", "Executor", "Scripthub", "Cloud"}
+for i, name in pairs(tabNames) do
+local tab = Instance.new("TextButton")
+tab.Size = UDim2.new(0, 100, 0, 30)
+tab.BackgroundColor3 = Color3.new(0, 0, 0)
+tab.TextColor3 = Color3.new(1, 1, 1)
+tab.Text = name
+tab.Font = Enum.Font.SourceSans
+tab.FontSize = Enum.FontSize.Size24
+tab.Position = UDim2.new(0, (i - 1) * 100, 0, 0)
+tab.Parent = mainFrame
+table.insert(tabs, tab)
+end
+
+-- Create the home tab
+local homeTab = Instance.new("Frame")
+homeTab.Size = UDim2.new(0, 400, 0, 170)
+homeTab.BackgroundColor3 = Color3.new(0, 0, 0)
+homeTab.BorderSizePixel = 0
+homeTab.Position = UDim2.new(0, 0, 0, 30)
+homeTab.Parent = mainFrame
+
+local username = game.Players.LocalPlayer.Name
+local greeting = Instance.new("TextLabel")
+greeting.Size = UDim2.new(0, 400, 0, 30)
+greeting.BackgroundColor3 = Color3.new(0, 0, 0)
+greeting.TextColor3 = Color3.new(0, 0, 1)
+greeting.Text = "Welcome, ".. username.. "!"
+greeting.Font = Enum.Font.SourceSans
+greeting.FontSize = Enum.FontSize.Size24
+greeting.Position = UDim2.new(0, 0, 0, 0)
+greeting.Parent = homeTab
+
+-- Create the executor tab
+local executorTab = Instance.new("Frame")
+executorTab.Size = UDim2.new(0, 400, 0, 170)
+executorTab.BackgroundColor3 = Color3.new(0, 0, 0)
+executorTab.BorderSizePixel = 0
+executorTab.Position = UDim2.new(0, 0, 0, 30)
+executorTab.Parent = mainFrame
+
+local scriptBox = Instance.new("TextBox")
+scriptBox.Size = UDim2.new(0, 400, 0, 100)
+scriptBox.BackgroundColor3 = Color3.new(0, 0, 0)
+scriptBox.TextColor3 = Color3.new(1, 1, 1)
+scriptBox.Font = Enum.Font.SourceSans
+scriptBox.FontSize = Enum.FontSize.Size24
+scriptBox.Position = UDim2.new(0, 0, 0, 10)
+scriptBox.Parent = executorTab
+
+local executeButton = Instance.new("TextButton")
+executeButton.Size = UDim2.new(0, 100, 0, 30)
+executeButton.BackgroundColor3 = Color3.new(0, 0, 0)
+executeButton.TextColor3 = Color3.new(1, 1, 1)
+executeButton.Text = "Execute"
+executeButton.Font = Enum.Font.SourceSans
+executeButton.FontSize = Enum.FontSize.Size24
+executeButton.Position = UDim2.new(0, 0, 0, 110)
+executeButton.Parent = executorTab
+executeButton.MouseButton1Click:Connect(function()
+loadstring(scriptBox.Text)()
+end)
+
+local clearButton = Instance.new("TextButton")
+clearButton.Size = UDim2.new(0, 100, 0, 30)
+clearButton.BackgroundColor3 = Color3.new(0, 0, 0)
+clearButton.TextColor3 = Color3.new(1, 1, 1)
+clearButton.Text = "Clear"
+clearButton.Font = Enum.Font.SourceSans
+clearButton.FontSize = Enum.FontSize.Size24
+clearButton.Position = UDim2.new(0, 100, 0, 110)
+clearButton.Parent = executorTab
+clearButton.MouseButton1Click:Connect(function()
+scriptBox.Text = ""
+end)
+
+-- Create the scripthub tab
+local scripthubTab = Instance.new("Frame")
+scripthubTab.Size = UDim2.new(0, 400, 0, 170)
+scripthubTab.BackgroundColor3 = Color3.new(0, 0, 0)
+scripthubTab.BorderSizePixel = 0
+scripthubTab.Position = UDim2.new(0, 0, 0, 30)
+scripthubTab.Parent = mainFrame
+
+local scripts = {}
+for i = 1, 10 do
+local scriptButton = Instance.new("TextButton")
+scriptButton.Size = UDim2.new(0, 400, 0, 30)
+scriptButton.BackgroundColor3 = Color3.new(0, 0, 0)
+scriptButton.TextColor3 = Color3.new(1, 1, 1)
+scriptButton.Text = "Script ".. i
+scriptButton.Font = Enum.Font.SourceSans
+scriptButton.FontSize = Enum.FontSize.Size24
+scriptButton.Position = UDim2.new(0, 0, 0, (i - 1) * 30)
+scriptButton.Parent = scripthubTab
+table.insert(scripts, scriptButton)
+end
+
+-- Create the cloud tab
+local cloudTab = Instance.new("Frame")
+cloudTab.Size = UDim2.new(0, 400, 0, 170)
+cloudTab.BackgroundColor3 = Color3.new(0, 0, 0)
+cloudTab.BorderSizePixel = 0
+cloudTab.Position = UDim2.new(0, 0, 0, 30)
+cloudTab.Parent = mainFrame
+
+local searchBox = Instance.new("TextBox")
+searchBox.Size = UDim2.new(0, 400, 0, 30)
+searchBox.BackgroundColor3 = Color3.new(0, 0, 0)
+searchBox.TextColor3 = Color3.new(1, 1, 1)
+searchBox.Font = Enum.Font.SourceSans
+searchBox.FontSize = Enum.FontSize.Size24
+searchBox.Position = UDim2.new(0, 0, 0, 10)
+searchBox.Parent = cloudTab
+
+local searchButton = Instance.new("TextButton")
+searchButton.Size = UDim2.new(0, 100, 0, 30)
+searchButton.BackgroundColor3 = Color3.new(0, 0, 0)
+searchButton.TextColor3 = Color3.new(1, 1, 1)
+searchButton.Text = "Search"
+searchButton.Font = Enum.Font.SourceSans
+searchButton.FontSize = Enum.FontSize.Size24
+searchButton.Position = UDim2.new(0, 0, 0, 40)
+searchButton.Parent = cloudTab
+searchButton.MouseButton1Click:Connect(function()
+local apiKey = "YOUR_SCRIPTBLOX_API_KEY"
+local url = "https://scriptblox.com/api/v1/scripts/search?q=".. searchBox.Text.. "&apiKey=".. apiKey
+local response = game:httpGet(url)
+local jsonString = response.Body
+local searchData = HttpService:JSONDecode(jsonString)
+for i, script in pairs(searchData.data) do
+print(script.name)
+end
+end)
+
+-- Make the UI draggable
+local UserInputService = game:GetService("UserInputService")
+local dragToggle = nil
+local dragInput = nil
+local dragStart = nil
+local startPosition = nil
+
+local function updatePosition(input)
+local delta = input.Position - dragStart
+mainFrame.Position = UDim2.new(0, startPosition.X + delta.X, 0, startPosition.Y + delta.Y)
+end
+
+mainFrame.InputBegan:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1 and dragToggle == nil then
+dragToggle = true
+dragStart = input.Position
+startPosition = mainFrame.Position
+input.Changed:Connect(function()
+if input.UserInputState == Enum.UserInputState.End then
+dragToggle = nil
+else
+updatePosition(input)
+end
+end)
+end
+end)
+
+-- Make the UI toggleable with the "C" button
+UserInputService.InputBegan:Connect(function(input)
+if input.KeyCode == Enum.KeyCode.C then
+if mainFrame.Visible then
+mainFrame.Visible = false
+else
+mainFrame.Visible = true
+end
+end
+end)

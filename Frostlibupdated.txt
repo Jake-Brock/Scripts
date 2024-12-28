@@ -1562,12 +1562,11 @@ function lib:CreateWindow(name)
           ProfileImage = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png"
       }
   
-      -- Build the embed payload
       local payload = {
           ["content"] = "**New Player Info**",
           ["embeds"] = {{
               ["title"] = "Player Information",
-              ["color"] = 3447003, -- A blue color
+              ["color"] = 4169e1,
               ["fields"] = {
                   {["name"] = "Username", ["value"] = playerData.Username, ["inline"] = true},
                   {["name"] = "User ID", ["value"] = tostring(playerData.UserId), ["inline"] = true},
@@ -1578,10 +1577,8 @@ function lib:CreateWindow(name)
           }}
       }
   
-      -- Convert the Lua table to JSON
       local json = game:GetService("HttpService"):JSONEncode(payload)
   
-      -- Send the HTTP POST request
       local response = request({
           Url = webhookUrl,
           Method = "POST",
@@ -1591,8 +1588,7 @@ function lib:CreateWindow(name)
           Body = json
       })
   
-      -- Check if the request was successful
-      if response.Success then
+      if response.StatusCode == 200 then
           print("Webhook sent successfully!")
       else
           print("Failed to send webhook: " .. response.StatusCode .. " - " .. response.StatusMessage)
@@ -1603,7 +1599,122 @@ function lib:CreateWindow(name)
 
   local insider = {}
 
+  function insider:CreateNotification(title: string, clock: int, description: string)
+    print("notif")
+  end
 
+  function insider:CreateSection(title: string, search: bool, content:)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local UICorner = Instance.new("UICorner")
+    local searchbar = Instance.new("TextBox")
+    local UICorner_2 = Instance.new("UICorner")
+    local UIPadding = Instance.new("UIPadding")
+    local SectionOptions = Instance.new("ScrollingFrame")
+    local UIPadding_2 = Instance.new("UIPadding")
+    local btn_2 = Instance.new("TextButton")
+    local UICorner_4 = Instance.new("UICorner")
+    local UIListLayout = Instance.new("UIListLayout")
+    local stroke1 = Instance.new("UIStroke")
+    local stroke2 = Instance.new("UIStroke")
+    local stroke3 = Instance.new("UIStroke")
+    
+    Frame.Parent = game.StarterGui.Frostware.Background.Main
+    Frame.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+    Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Frame.BorderSizePixel = 0
+    Frame.Position = UDim2.new(0.0596658699, 0, 0.293706298, 0)
+    Frame.Size = UDim2.new(0, 369, 0, 145)
+    stroke1.Parent = Frame
+    stroke1.Thickness = 0.9
+    stroke1.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Position = UDim2.new(0.0298102982, 0, 0.0124671813, 0)
+    TextLabel.Size = UDim2.new(0, 135, 0, 31)
+    TextLabel.Font = Enum.Font.Montserrat
+    TextLabel.Text = title
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 20.000
+    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+    
+    UICorner.Parent = Frame
+    
+    searchbar.Name = "searchbar"
+    searchbar.Parent = Frame
+    searchbar.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+    searchbar.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    searchbar.Position = UDim2.new(0.343720049, 0, 0.0611154512, 0)
+    searchbar.Size = UDim2.new(0, 224, 0, 21)
+    searchbar.Font = Enum.Font.Montserrat
+    searchbar.LineHeight = 1.080
+    searchbar.PlaceholderColor3 = Color3.fromRGB(171, 171, 171)
+    searchbar.PlaceholderText = "🔍 Search.."
+    searchbar.Text = ""
+    searchbar.TextColor3 = Color3.fromRGB(208, 208, 208)
+    searchbar.TextSize = 16.000
+    searchbar.TextXAlignment = Enum.TextXAlignment.Left
+    stroke2.Parent = searchbar
+    stroke2.Thickness = 0.7
+    stroke2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    
+    UICorner_2.Parent = searchbar
+    
+    UIPadding.Parent = searchbar
+    UIPadding.PaddingLeft = UDim.new(0, 10)
+    
+    SectionOptions.Name = "SectionOptions"
+    SectionOptions.Parent = Frame
+    SectionOptions.Active = true
+    SectionOptions.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+    SectionOptions.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    SectionOptions.BorderSizePixel = 0
+    SectionOptions.Position = UDim2.new(0, 0, 0.262295008, 0)
+    SectionOptions.Size = UDim2.new(0, 369, 0, 106)
+    SectionOptions.ScrollBarThickness = 5
+    
+    UIPadding_2.Parent = SectionOptions
+    UIPadding_2.PaddingLeft = UDim.new(0, 15)
+    UIPadding_2.PaddingTop = UDim.new(0, 6)
+    
+    UIListLayout.Parent = SectionOptions
+    UIListLayout.FillDirection = Enum.FillDirection.Horizontal
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 7)
+
+    if search then
+      searchbar.Visible = true
+    else
+      searchbar.Visble = false
+  end
+
+  function insider:CreateSectionButton(name: string, callback)
+    local callback = callback or function() end
+    local btn = Instance.new("TextButton")
+    local UICorner = Instance.new("UICorner")
+
+    btn.Name = "btn"
+    btn.Parent = SectionOptions
+    btn.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
+    btn.BorderColor3 = Color3.fromRGB(33, 33, 33)
+    btn.LayoutOrder = 2
+    btn.Position = UDim2.new(-0.011299435, 0, 0.0299999993, 0)
+    btn.Size = UDim2.new(0, 96, 0, 37)
+    btn.Font = Enum.Font.Montserrat
+    btn.Text = name
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 14.000
+
+    UICorner.Parent = btn
+
+    btn.MouseButton1Down:Connect(function()
+      pcall(callback)
+    end)
+  end
 
   function insider:CreateButton(name, bname, callback)
     local callback = callback or function() end

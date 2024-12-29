@@ -1698,7 +1698,7 @@ end
     local UICorner = Instance.new("UICorner")
 
     btn.Name = "btn"
-    btn.Parent = Page1.sname
+    btn.Parent = Page1:WaitForChild(sname)
     btn.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
     btn.BorderColor3 = Color3.fromRGB(33, 33, 33)
     btn.LayoutOrder = 2

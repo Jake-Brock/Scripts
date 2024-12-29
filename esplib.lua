@@ -76,63 +76,45 @@ function ESP:Add(obj, options)
         return warn(obj, "has no parent")
     end
 
-    local primaryPart =
-        options.PrimaryPart or (obj:IsA("Model") and (obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart")))
-    if not primaryPart then
-        return
-    end
+    local primaryPart = options.PrimaryPart or (obj:IsA("Model") and (obj.PrimaryPart or obj:FindFirstChild("HumanoidRootPart")))
+    if not primaryPart then return end
 
-    local box =
-        setmetatable(
-        {
-            Name = options.Name or obj.Name,
-            Type = "Box",
-            Color = options.Color,
-            Size = options.Size or self.BoxSize,
-            Object = obj,
-            Player = options.Player or players:GetPlayerFromCharacter(obj),
-            PrimaryPart = primaryPart,
-            Components = {},
-            IsEnabled = options.IsEnabled,
-            Temporary = options.Temporary,
-            ColorDynamic = options.ColorDynamic,
-            RenderInNil = options.RenderInNil
-        },
-        {
-            __index = function(_, key)
-                return ESP[key]
-            end
-        }
-    )
+    local box = setmetatable({
+        Name = options.Name or obj.Name,
+        Type = "Box",
+        Color = options.Color,
+        Size = options.Size or self.BoxSize,
+        Object = obj,
+        Player = options.Player or players:GetPlayerFromCharacter(obj),
+        PrimaryPart = primaryPart,
+        Components = {},
+        IsEnabled = options.IsEnabled,
+        Temporary = options.Temporary,
+        ColorDynamic = options.ColorDynamic,
+        RenderInNil = options.RenderInNil
+    }, boxBase) -- Correctly applying the boxBase metatable here
 
     self.Objects[obj] = box
 
-    box.Components.Quad = Draw("Quad", {Thickness = self.Thickness, Transparency = 1, Filled = false})
-    box.Components.Name = Draw("Text", {Center = true, Outline = true, Size = 19})
-    box.Components.Distance = Draw("Text", {Center = true, Outline = true, Size = 19})
-    box.Components.Tracer = Draw("Line", {Thickness = self.Thickness, Transparency = 1})
+    box.Components.Quad = Draw("Quad", { Thickness = self.Thickness, Transparency = 1, Filled = false })
+    box.Components.Name = Draw("Text", { Center = true, Outline = true, Size = 19 })
+    box.Components.Distance = Draw("Text", { Center = true, Outline = true, Size = 19 })
+    box.Components.Tracer = Draw("Line", { Thickness = self.Thickness, Transparency = 1 })
 
-    obj.AncestryChanged:Connect(
-        function(_, parent)
-            if not parent and self.AutoRemove ~= false then
-                box:Remove()
-            end
-        end
-    )
+    obj.AncestryChanged:Connect(function(_, parent)
+        if not parent and self.AutoRemove ~= false then box:Remove() end
+    end)
 
     local humanoid = obj:FindFirstChildOfClass("Humanoid")
     if humanoid then
-        humanoid.Died:Connect(
-            function()
-                if self.AutoRemove ~= false then
-                    box:Remove()
-                end
-            end
-        )
+        humanoid.Died:Connect(function()
+            if self.AutoRemove ~= false then box:Remove() end
+        end)
     end
 
     return box
 end
+
 
 function ESP:UpdateObject(obj)
     local components = obj.Components

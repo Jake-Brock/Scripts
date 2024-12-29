@@ -1,9 +1,7 @@
--- Roblox ESP Library
 local ESP = {}
 ESP.Objects = {}
 ESP.Connections = {}
 
--- Function to create a new ESP object
 function ESP:AddObjectListener(parent, options)
     assert(typeof(parent) == "Instance", "Parent must be an Instance")
     assert(typeof(options) == "table", "Options must be a table")
@@ -57,12 +55,10 @@ function ESP:AddObjectListener(parent, options)
     end)
 end
 
--- Enable or disable ESP for specific flags
 function ESP:SetEnabled(flagName, enabled)
     self[flagName] = enabled
 end
 
--- Clear all ESP objects
 function ESP:Clear()
     for _, connection in pairs(self.Connections) do
         connection:Disconnect()

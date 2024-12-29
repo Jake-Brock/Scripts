@@ -1692,13 +1692,13 @@ function lib:CreateWindow(name)
   end
 end
 
-  function insider:CreateSectionButton(name, sname,callback)
+  function insider:CreateSectionButton(name, sname, callback)
     local callback = callback or function() end
     local btn = Instance.new("TextButton")
     local UICorner = Instance.new("UICorner")
 
     btn.Name = "btn"
-    btn.Parent = Frame.sname
+    btn.Parent = Page1.sname
     btn.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
     btn.BorderColor3 = Color3.fromRGB(33, 33, 33)
     btn.LayoutOrder = 2

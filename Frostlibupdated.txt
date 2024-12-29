@@ -1589,7 +1589,10 @@ function lib:CreateWindow(name)
       })
   
       if response.StatusCode == 200 then
-          print("Webhook sent successfully!")
+
+        local data = game:GetService("HttpService"):JSONDecode(response.Body)
+
+          print("Success! " .. data.message)
       else
           print("Failed to send webhook: " .. response.StatusCode .. " - " .. response.StatusMessage)
       end
@@ -1692,6 +1695,7 @@ function lib:CreateWindow(name)
     else
       searchbar.Visble = false
   end
+end
 
   function insider:CreateSectionButton(name, callback)
     local callback = callback or function() end

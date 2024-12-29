@@ -1635,7 +1635,7 @@ function lib:CreateWindow(name)
     TextLabel.BorderSizePixel = 0
     TextLabel.Position = UDim2.new(0.0298102982, 0, 0.0124671813, 0)
     TextLabel.Size = UDim2.new(0, 135, 0, 31)
-    TextLabel.Font = Enum.Font.Montserrat
+    label.Font = Enum.Font.GothamBold
     TextLabel.Text = title
     TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     TextLabel.TextSize = 20.000
@@ -1688,7 +1688,7 @@ function lib:CreateWindow(name)
     if search then
       searchbar.Visible = true
     else
-      searchbar.Visble = false
+      searchbar.Visible = false
   end
 end
 

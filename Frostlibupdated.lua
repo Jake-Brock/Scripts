@@ -1696,9 +1696,10 @@ end
     local callback = callback or function() end
     local btn = Instance.new("TextButton")
     local UICorner = Instance.new("UICorner")
+    local stroke = Instance.new("UIStroke")
 
     btn.Name = "btn"
-    btn.Parent = Page1:WaitForChild(sname)
+    btn.Parent = Page1:WaitForChild(sname).SectionOptions
     btn.BackgroundColor3 = Color3.fromRGB(21, 21, 21)
     btn.BorderColor3 = Color3.fromRGB(33, 33, 33)
     btn.LayoutOrder = 2
@@ -1708,6 +1709,10 @@ end
     btn.Text = name
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
     btn.TextSize = 14.000
+
+    stroke.Parent = btn
+    stroke.Thickness = .7
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
     UICorner.Parent = btn
 

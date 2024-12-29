@@ -1617,7 +1617,7 @@ function lib:CreateWindow(name)
     local stroke2 = Instance.new("UIStroke")
     local stroke3 = Instance.new("UIStroke")
     
-    Frame.Parent = game.StarterGui.Frostware.Background.Main
+    Frame.Parent = Page1
     Frame.Name = name
     Frame.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
     Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)

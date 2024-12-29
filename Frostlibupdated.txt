@@ -1593,6 +1593,7 @@ function lib:CreateWindow(name)
       else
           print("Failed to send webhook: " .. response.StatusCode .. " - " .. response.StatusMessage)
       end
+  end
 
 
 

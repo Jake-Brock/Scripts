@@ -145,7 +145,7 @@ Frostware.Parent = game:GetService("CoreGui")
 Frostware.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Toggle.Name = "Toggle"
-Toggle.Parent = game.StarterGui.Frostware
+Toggle.Parent = Frostware
 Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Toggle.BackgroundTransparency = 1.000
 Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)

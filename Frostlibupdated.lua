@@ -1238,7 +1238,58 @@ coroutine.wrap(URGG_fake_script)()
 local function BFSYBW_fake_script() -- Toggle.LocalScript 
 	local script = Instance.new('LocalScript', Toggle)
 
-	 function dragify(b)dragToggle=nil dragSpeed=.5 dragInput=nil dragStart=nil dragPos=nil function updateInput(a)Delta=a.Position-dragStart Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+Delta.X,startPos.Y.Scale,startPos.Y.Offset+Delta.Y)game:GetService("TweenService"):Create(b,TweenInfo.new(.25),{Position=Position}):Play()end b.InputBegan:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch)then dragToggle=true dragStart=a.Position startPos=b.Position a.Changed:Connect(function()if(a.UserInputState==Enum.UserInputState.End)then dragToggle=false end end)end end)b.InputChanged:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseMovement or a.UserInputType==Enum.UserInputType.Touch)then dragInput=a end end)game:GetService("UserInputService").InputChanged:Connect(function(a)if(a==dragInput and dragToggle)then updateInput(a)end end)end dragify(script.Parent)
+  local Players = game:GetService('Players')
+  local UIS = game:GetService("UserInputService")
+  
+  --// Variables
+  local UI = script.Parent
+  
+  local Player = Players.LocalPlayer
+  local Mouse = Player:GetMouse()
+  
+  local Hovered = false
+  local Holding = false
+  local MoveCon = nil
+  
+  local InitialX, InitialY, UIInitialPos
+  
+  --// Functions
+  
+  local function Drag()
+    if Holding == false then MoveCon:Disconnect(); return end
+    local distanceMovedX = InitialX - Mouse.X
+    local distanceMovedY = InitialY - Mouse.Y
+  
+    UI.Position = UIInitialPos - UDim2.new(0, distanceMovedX, 0, distanceMovedY)
+  end
+  
+  --// Connections
+  
+  UI.MouseEnter:Connect(function()
+    Hovered = true
+  end)
+  
+  UI.MouseLeave:Connect(function()
+    Hovered = false
+  end)
+  
+  UIS.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+      Holding = Hovered
+      if Holding then
+        InitialX, InitialY = Mouse.X, Mouse.Y
+        UIInitialPos = UI.Position
+  
+        MoveCon = Mouse.Move:Connect(Drag)
+      end
+    end
+  end)
+  
+  UIS.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+      Holding = false
+    end
+  end)
 end
 coroutine.wrap(BFSYBW_fake_script)()
 

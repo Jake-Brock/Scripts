@@ -48,7 +48,7 @@ Timer.TextWrapped = true
 local clock = 10
 
 while task.wait(1) do
-     Timer.Text = "This tab will close in " .. 1 - clock .. "s"
+     Timer.Text = "This tab will close in " ..  clock - 1 .. "s"
      if clock == 0 then
           NotSupported:Destroy()
           break

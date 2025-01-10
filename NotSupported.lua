@@ -61,7 +61,7 @@ UIGradient.Parent = Title
 UICorner.CornerRadius = UDim.new(0, 5)
 UICorner.Parent = Background
 
-local content {}
+local content = {}
 
 function content:EditContent(name)
 local Content = Instance.new("TextLabel")

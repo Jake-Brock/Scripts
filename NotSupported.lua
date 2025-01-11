@@ -4,6 +4,8 @@ local Title = Instance.new("TextLabel")
 local UIGradient = Instance.new("UIGradient")
 local UICorner = Instance.new("UICorner")
 local Timer = Instance.new("TextLabel")
+local Content = Instance.new("TextLabel")
+local Executor = identifyexecutor()
 
 NotSupported.Name = "NotSupported"
 NotSupported.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -30,6 +32,21 @@ Title.Text = "discord.gg/getfrost"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 19.000
 Title.TextWrapped = true
+
+Content.Name = "Content"
+Content.Parent = Background
+Content.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Content.BackgroundTransparency = 1.000
+Content.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Content.BorderSizePixel = 0
+Content.Position = UDim2.new(0.166666716, 0, 0.206140414, 0)
+Content.Size = UDim2.new(0, 221, 0, 134)
+Content.Font = Enum.Font.FredokaOne
+Content.Text = "Your Executor " .. Executor .. " is not supported."
+Content.TextColor3 = Color3.fromRGB(255, 255, 255)
+Content.TextSize = 19.000
+Content.TextWrapped = true
+
 
 Timer.Name = "Timer"
 Timer.Parent = Background
@@ -61,26 +78,3 @@ UIGradient.Parent = Title
 
 UICorner.CornerRadius = UDim.new(0, 5)
 UICorner.Parent = Background
-
-local content = {}
-
-function content:EditContent(name)
-local Content = Instance.new("TextLabel")
-
-Content.Name = "Content"
-Content.Parent = Background
-Content.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Content.BackgroundTransparency = 1.000
-Content.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Content.BorderSizePixel = 0
-Content.Position = UDim2.new(0.166666716, 0, 0.206140414, 0)
-Content.Size = UDim2.new(0, 221, 0, 134)
-Content.Font = Enum.Font.FredokaOne
-Content.Text = "Your Executor " .. name .. " is not supported."
-Content.TextColor3 = Color3.fromRGB(255, 255, 255)
-Content.TextSize = 19.000
-Content.TextWrapped = true
-
-end
-
-return content

@@ -45,7 +45,7 @@ Content.Font = Enum.Font.FredokaOne
 Content.Text = "Your Executor " .. Executor .. " is not supported."
 Content.TextColor3 = Color3.fromRGB(255, 255, 255)
 Content.TextSize = 19.000
-Content.TextWrapped = true
+Content.TextWrapped = false
 
 
 Timer.Name = "Timer"
